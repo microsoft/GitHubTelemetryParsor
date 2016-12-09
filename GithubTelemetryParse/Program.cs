@@ -18,34 +18,35 @@ namespace GithubTelemetryParse
             //Get Data from Appsettings
             var gitHubAccount = ConfigurationManager.AppSettings["GitHubAccount"];
             var gitHubPersonalToken = ConfigurationManager.AppSettings["GitHubPersonalToken"];
-            var sqlConnectionString = ConfigurationManager.AppSettings["SQLConnectionString"];    
+            var sqlConnectionString = ConfigurationManager.AppSettings["SQLConnectionString"];
+            var reposPath = ConfigurationManager.AppSettings["ReposPath"];    
             
             //Github client
-            var client = new RestClient("https://api.github.com");
+            var client = new RestClient("https://api.github.com/repos/" + reposPath );
             client.Authenticator = new HttpBasicAuthenticator(gitHubAccount, gitHubPersonalToken);
 
             //Get Views Data
-            var viewRequest = new RestRequest("repos/azure/azureglobalconnectiontoolkit/traffic/views", Method.GET);
+            var viewRequest = new RestRequest("traffic/views", Method.GET);
             viewRequest.AddHeader("Accept", "application/vnd.github.spiderman-preview");
             IRestResponse viewResponse = client.Execute(viewRequest);
             var viewJson = viewResponse.Content;
             var views = JsonConvert.DeserializeObject<Views>(viewJson);
 
             //Get Downloads Data
-            var downloadRequest = new RestRequest("repos/azure/azureglobalconnectiontoolkit/releases", Method.GET);
+            var downloadRequest = new RestRequest("releases", Method.GET);
             IRestResponse downloadResponse = client.Execute(downloadRequest);
             var downloadJson = downloadResponse.Content;
             var downloads = JsonConvert.DeserializeObject<IEnumerable<Release>>(downloadJson);
 
             //Get Popular Path Data
-            var pathRequest = new RestRequest("repos/azure/azureglobalconnectiontoolkit/traffic/popular/paths", Method.GET);
+            var pathRequest = new RestRequest("traffic/popular/paths", Method.GET);
             pathRequest.AddHeader("Accept", "application/vnd.github.spiderman-preview");
             IRestResponse pathResponse = client.Execute(pathRequest);
             var pathJson = pathResponse.Content;
             var paths = JsonConvert.DeserializeObject<IEnumerable<Path>>(pathJson);
 
             //Get Top 10 Referrer Data
-            var referrerRequest = new RestRequest("repos/azure/azureglobalconnectiontoolkit/traffic/popular/referrers", Method.GET);
+            var referrerRequest = new RestRequest("traffic/popular/referrers", Method.GET);
             referrerRequest.AddHeader("Accept", "application/vnd.github.spiderman-preview");
             IRestResponse referrerResponse = client.Execute(referrerRequest);
             var referrerJson = referrerResponse.Content;
