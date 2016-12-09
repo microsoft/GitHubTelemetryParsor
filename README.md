@@ -11,5 +11,5 @@ To use this tool, please follow the steps:
   * Github Account
   * Github Personal Access Token. (check [here](https://github.com/blog/1509-personal-api-tokens) if you don't have yet)
   * SQL ADO.NET connection string
-  * Repos path like "Microsoft/GitHubTelemetryParsor"
+  * Repos path like "Microsoft/GitHubTelemetryParsor"
 5. Build the Solution and Run
