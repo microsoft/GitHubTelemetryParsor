@@ -4,7 +4,7 @@ Github Traffic API only has two weeks historic data. This tool helps to collect 
 ##Get Started
 To use this tool, please follow the steps:
 
-1. Prepare your SQL Sever.
+1. Prepare your SQL Server.
 2. Execute the [table create command](https://github.com/Microsoft/GitHubTelemetryParsor/tree/master/TableCreation)
 3. Open GithubTelemetryParse.sln in Visual Studio.
 4. Define Parameter in app.config.
